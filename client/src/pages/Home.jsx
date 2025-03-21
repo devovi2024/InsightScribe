@@ -1,8 +1,17 @@
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 
 const Home = () => {
+  useEffect(() => {
+    try {
+      (window.adsbygoogle = window.adsbygoogle || []).push({});
+    } catch (e) {
+      console.error("AdSense Error:", e);
+    }
+  }, []);
+
   return (
-    <div className="flex flex-col items-center justify-center mt-10  ">
+    <div className="flex flex-col items-center justify-center mt-10">
       <h1 className="text-4xl font-bold text-blue-600 mb-4">Ovi's Here</h1>
       <p className="text-lg text-gray-700 mb-6">Go to Dashboard</p>
       <Link
@@ -11,6 +20,19 @@ const Home = () => {
       >
         🚀 Dashboard
       </Link>
+
+      {/* ✅ Google Ad Section */}
+      <div className="mt-8">
+        <p className="text-gray-500 text-sm mb-2">Sponsored Ads</p>
+        <ins
+          className="adsbygoogle"
+          style={{ display: "block" }}
+          data-ad-client="ca-pub-xxxxxxxxxxxxxxxx" // Replace with your AdSense Publisher ID
+          data-ad-slot="xxxxxxxxxx" // Replace with your Ad Slot ID
+          data-ad-format="auto"
+          data-full-width-responsive="true"
+        ></ins>
+      </div>
     </div>
   );
 };
