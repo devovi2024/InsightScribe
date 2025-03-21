@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const CreatePost = () => {
   const [title, setTitle] = useState("");
@@ -14,11 +15,16 @@ const CreatePost = () => {
   const token = localStorage.getItem("token");
   const userId = localStorage.getItem("userId");
 
-
   useEffect(() => {
     if (!token) {
-      alert("Please login first!");
-      navigate("/login");
+      Swal.fire({
+        icon: "warning",
+        title: "Unauthorized!",
+        text: "Please login first!",
+        confirmButtonText: "OK"
+      }).then(() => {
+        navigate("/login");
+      });
     }
   }, [token, navigate]);
 
@@ -54,18 +60,26 @@ const CreatePost = () => {
     e.preventDefault();
     
     if (!userId) {
-      alert("User not authenticated!");
+      Swal.fire({
+        icon: "error",
+        title: "Authentication Error",
+        text: "User not authenticated!",
+      });
       return;
     }
 
     try {
       const newPost = { title, content, category, subcategory, user: userId };
       const response = await axios.post("http://localhost:2800/api/posts", newPost, {
-        headers: { Authorization: `Bearer ${token}` }, // Attach token
+        headers: { Authorization: `Bearer ${token}` },
       });
 
       if (response.status === 201) {
-        alert("Post Created Successfully!");
+        Swal.fire({
+          icon: "success",
+          title: "Success!",
+          text: "Post Created Successfully!",
+        });
         setTitle("");
         setContent("");
         setCategory("");
@@ -73,7 +87,11 @@ const CreatePost = () => {
       }
     } catch (error) {
       console.error("Error creating post:", error);
-      alert("Failed to create post");
+      Swal.fire({
+        icon: "error",
+        title: "Error!",
+        text: "Failed to create post",
+      });
     }
   };
 
@@ -96,8 +114,6 @@ const CreatePost = () => {
           onChange={(e) => setContent(e.target.value)}
           required
         />
-        
-
         <select
           className="w-full p-2 border border-gray-300 rounded"
           value={category}
@@ -109,8 +125,6 @@ const CreatePost = () => {
             <option key={cat._id} value={cat._id}>{cat.name}</option>
           ))}
         </select>
-
- 
         <select
           className="w-full p-2 border border-gray-300 rounded"
           value={subcategory}
@@ -123,7 +137,6 @@ const CreatePost = () => {
             <option key={sub._id} value={sub._id}>{sub.name}</option>
           ))}
         </select>
-
         <button
           className="w-full bg-blue-500 text-white font-semibold py-2 rounded hover:bg-blue-600"
           type="submit"
