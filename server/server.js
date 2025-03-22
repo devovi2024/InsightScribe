@@ -1,14 +1,7 @@
-import express from "express";
 import dotenv from "dotenv";
+import app from "./app.js"; 
 
-// Initialize dotenv to use environment variables
 dotenv.config();
-
-const app = express();
-
-app.get("/", (req, res) => {
-  res.send("Inside Scribe , World!");
-});
 
 const PORT = process.env.PORT || 5000;
 
