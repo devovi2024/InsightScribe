@@ -22,6 +22,9 @@ const Sidebar = ({ setActiveComponent }) => {
       <button className="block w-full p-2 bg-gray-700" onClick={() => setActiveComponent("update")}>
         Update/Delete Post
       </button>
+      <button className="mt-4 block w-full p-2 bg-gray-700" onClick={() => setActiveComponent("CategoryList")}>
+         Category List
+      </button>
     </div>
   );
 };

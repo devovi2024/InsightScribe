@@ -6,6 +6,7 @@ import UpdateDeletePost from "../components/UpdateDeletePost";
 import Category from "../components/Category";
 import SubCategory from "../components/SubCategory";
 import Statistics from "../components/Statistics";
+import CategoryList from "../components/CategoryList";
 
 const Dashboard = () => {
   const [activeComponent, setActiveComponent] = useState("all");
@@ -20,6 +21,8 @@ const Dashboard = () => {
         {activeComponent === "all" && <AllPosts />}
         {activeComponent === "create" && <CreatePost />}
         {activeComponent === "update" && <UpdateDeletePost />}
+
+        {activeComponent === "CategoryList" && <CategoryList />}
       </div>
     </div>
   );
