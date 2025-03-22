@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import axiosInstance from "../api/axiosInstance";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
@@ -10,7 +10,7 @@ const CreatePost = () => {
   const [subcategory, setSubcategory] = useState("");
   const [categories, setCategories] = useState([]);
   const [subcategories, setSubcategories] = useState([]);
-  
+
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
   const userId = localStorage.getItem("userId");
@@ -21,7 +21,7 @@ const CreatePost = () => {
         icon: "warning",
         title: "Unauthorized!",
         text: "Please login first!",
-        confirmButtonText: "OK"
+        confirmButtonText: "OK",
       }).then(() => {
         navigate("/login");
       });
@@ -32,7 +32,7 @@ const CreatePost = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get("http://localhost:2800/api/categories");
+        const response = await axiosInstance.get("/categories");
         setCategories(response.data);
       } catch (error) {
         console.error("Error fetching categories:", error);
@@ -46,7 +46,7 @@ const CreatePost = () => {
     if (category) {
       const fetchSubcategories = async () => {
         try {
-          const response = await axios.get(`http://localhost:2800/api/subcategories?category=${category}`);
+          const response = await axiosInstance.get(`/subcategories?category=${category}`);
           setSubcategories(response.data);
         } catch (error) {
           console.error("Error fetching subcategories:", error);
@@ -58,7 +58,7 @@ const CreatePost = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!userId) {
       Swal.fire({
         icon: "error",
@@ -70,7 +70,7 @@ const CreatePost = () => {
 
     try {
       const newPost = { title, content, category, subcategory, user: userId };
-      const response = await axios.post("http://localhost:2800/api/posts", newPost, {
+      const response = await axiosInstance.post("/posts", newPost, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -130,7 +130,7 @@ const CreatePost = () => {
           value={subcategory}
           onChange={(e) => setSubcategory(e.target.value)}
           required
-          disabled={!category} 
+          disabled={!category}
         >
           <option value="">Select Subcategory</option>
           {subcategories.map((sub) => (

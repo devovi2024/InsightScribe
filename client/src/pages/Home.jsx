@@ -27,8 +27,8 @@ const Home = () => {
         <ins
           className="adsbygoogle"
           style={{ display: "block" }}
-          data-ad-client="ca-pub-xxxxxxxxxxxxxxxx" // Replace with your AdSense Publisher ID
-          data-ad-slot="xxxxxxxxxx" // Replace with your Ad Slot ID
+          data-ad-client="ca-pub-xxxxxxxxxxxxxxxx" 
+          data-ad-slot="xxxxxxxxxx" 
           data-ad-format="auto"
           data-full-width-responsive="true"
         ></ins>

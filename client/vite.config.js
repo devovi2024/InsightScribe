@@ -10,5 +10,5 @@ export default defineConfig({
     tailwindcss(),
 
   ],
-      base: process.env.VITE_BASE_PATH || "/InsightScribe/tree/master/client"
+      base: process.env.VITE_BASE_PATH || "/"
 })

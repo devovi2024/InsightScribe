@@ -35,11 +35,12 @@ const Login = () => {
         window.location.reload();
       }, 2000);
     } catch (err) {
-      setError(err.response?.data?.message || "❌ Login failed. Please try again.");
+      const errorMessage = err.response?.data?.message || "❌ Login failed. Please try again.";
+      setError(errorMessage);
       Swal.fire({
         icon: "error",
         title: "Oops...",
-        text: error,
+        text: errorMessage,
       });
     } finally {
       setLoading(false);
@@ -63,7 +64,7 @@ const Login = () => {
           type="email"
           placeholder="📧 Email"
           value={user.email}
-          onChange={(e) => setUser({ ...user, email: e.target.value })}
+          onChange={(e) => setUser((prev) => ({ ...prev, email: e.target.value }))}
           required
         />
 
@@ -72,7 +73,7 @@ const Login = () => {
           type="password"
           placeholder="🔒 Password"
           value={user.password}
-          onChange={(e) => setUser({ ...user, password: e.target.value })}
+          onChange={(e) => setUser((prev) => ({ ...prev, password: e.target.value }))}
           required
         />
 

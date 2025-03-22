@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import API from "../api/axiosInstance";
 import Slider from "react-slick";
 
 import "slick-carousel/slick/slick.css";
@@ -19,8 +19,7 @@ const AllPosts = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:2800/api/posts")
+    API.get("/posts")
       .then((res) => setPosts(Array.isArray(res.data) ? res.data : []))
       .catch((err) => {
         console.error("Error fetching posts:", err);
@@ -36,7 +35,7 @@ const AllPosts = () => {
     dots: true,
     infinite: true,
     speed: 500,
-    slidesToShow: posts.length < 3 ? posts.length : 3, // Avoid empty slides
+    slidesToShow: posts.length < 3 ? posts.length : 3,
     slidesToScroll: 1,
     centerMode: true,
     centerPadding: "0px",
@@ -58,7 +57,9 @@ const AllPosts = () => {
         📊 Total Posts: {posts.length}
       </div>
 
-      <h1 className="mt-10 text-3xl font-bold text-gray-800 mb-6 text-center">📌 All Posts</h1>
+      <h1 className="mt-10 text-3xl font-bold text-gray-800 mb-6 text-center">
+        📌 All Posts
+      </h1>
 
       {posts.length > 0 ? (
         <div className="relative">

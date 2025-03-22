@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import API from "../api/axiosInstance";
-import Swal from "sweetalert2"; // Import SweetAlert
+import API from "../api/axiosInstance.js";
+import Swal from "sweetalert2"; 
 
 const Register = () => {
   const [user, setUser] = useState({ name: "", email: "", password: "" });
@@ -20,11 +20,12 @@ const Register = () => {
       });
       navigate("/login");
     } catch (err) {
-      setError(err.response?.data?.message || "Registration failed.");
+      const errorMessage = err.response?.data?.message || "Registration failed.";
+      setError(errorMessage);
       Swal.fire({
         icon: "error",
         title: "Oops...",
-        text: err.response?.data?.message || "Something went wrong!",
+        text: errorMessage,
       });
     }
   };
@@ -38,21 +39,24 @@ const Register = () => {
           className="w-full p-2 mb-2 border rounded"
           type="text"
           placeholder="Name"
-          onChange={(e) => setUser({ ...user, name: e.target.value })}
+          value={user.name}
+          onChange={(e) => setUser((prev) => ({ ...prev, name: e.target.value }))}
           required
         />
         <input
           className="w-full p-2 mb-2 border rounded"
           type="email"
           placeholder="Email"
-          onChange={(e) => setUser({ ...user, email: e.target.value })}
+          value={user.email}
+          onChange={(e) => setUser((prev) => ({ ...prev, email: e.target.value }))}
           required
         />
         <input
           className="w-full p-2 mb-4 border rounded"
           type="password"
           placeholder="Password"
-          onChange={(e) => setUser({ ...user, password: e.target.value })}
+          value={user.password}
+          onChange={(e) => setUser((prev) => ({ ...prev, password: e.target.value }))}
           required
         />
         <button className="w-full bg-blue-500 text-white p-2 rounded">Register</button>
