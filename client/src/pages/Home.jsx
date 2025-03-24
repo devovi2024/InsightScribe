@@ -1,14 +1,13 @@
 import { Link } from "react-router-dom";
+import SubCategories from "../components/SubCategories";
 import { useEffect } from "react";
 
 const Home = () => {
   useEffect(() => {
-    try {
-      (window.adsbygoogle = window.adsbygoogle || []).push({});
-    } catch (e) {
-      console.error("AdSense Error:", e);
+    if (location.pathname === '/home') { 
+      window.location.reload(); 
     }
-  }, []);
+  }, [location]);
 
   return (
     <div className="flex flex-col items-center justify-center mt-10">
@@ -20,19 +19,8 @@ const Home = () => {
       >
         🚀 Dashboard
       </Link>
-
-      {/* ✅ Google Ad Section */}
-      <div className="mt-8">
-        <p className="text-gray-500 text-sm mb-2">Sponsored Ads</p>
-        <ins
-          className="adsbygoogle"
-          style={{ display: "block" }}
-          data-ad-client="ca-pub-xxxxxxxxxxxxxxxx" 
-          data-ad-slot="xxxxxxxxxx" 
-          data-ad-format="auto"
-          data-full-width-responsive="true"
-        ></ins>
-      </div>
+      <h1>Categories</h1>
+      <SubCategories />
     </div>
   );
 };

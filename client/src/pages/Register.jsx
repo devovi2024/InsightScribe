@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import API from "../api/axiosInstance.js";
+import axios from "axios"; // Ensure axios is imported
 import Swal from "sweetalert2"; 
 
 const Register = () => {
@@ -11,14 +11,19 @@ const Register = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      await API.post("/users/register", user);
-      Swal.fire({
-        icon: "success",
-        title: "Registration Successful!",
-        text: "Please log in to continue.",
-        confirmButtonColor: "#3085d6",
+      const response = await axios.post("http://localhost:2800/api/users/register", user, {
+        headers: { "Content-Type": "application/json" },
       });
-      navigate("/login");
+
+      if (response.status === 201) {
+        Swal.fire({
+          icon: "success",
+          title: "Registration Successful!",
+          text: "Please log in to continue.",
+          confirmButtonColor: "#3085d6",
+        });
+        navigate("/login");
+      }
     } catch (err) {
       const errorMessage = err.response?.data?.message || "Registration failed.";
       setError(errorMessage);
@@ -59,7 +64,9 @@ const Register = () => {
           onChange={(e) => setUser((prev) => ({ ...prev, password: e.target.value }))}
           required
         />
-        <button className="w-full bg-blue-500 text-white p-2 rounded">Register</button>
+        <button type="submit" className="w-full bg-blue-500 text-white p-2 rounded">
+          Register
+        </button>
       </form>
     </div>
   );

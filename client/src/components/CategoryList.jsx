@@ -15,17 +15,20 @@ const CategoryList = () => {
     fetchCategories();
   }, []);
 
+
   const fetchCategories = async () => {
-    setLoading(true);
-    try {
-      const response = await axios.get("http://localhost:2800/api/categories");
-      setCategories(response.data);
-    } catch (error) {
-      console.error("Error fetching categories:", error);
-      toast.error("Failed to load categories 😢");
+    setLoading(true)
+    try{
+      const res = await axios.get("http://localhost:2800/api/categories");
+      console.log(res.data);
+      setCategories(res.data)
+    } catch(error){
+
+      console.error("Error Fetching categories", error);
+      toast.error("Failed to load categories");
     }
-    setLoading(false);
-  };
+    setLoading(false)
+  }
 
   const handleEdit = (category) => {
     setSelectedCategory(category);
@@ -88,6 +91,7 @@ const CategoryList = () => {
   return (
     <div className="p-6">
       <h1 className="text-3xl font-bold text-center my-4">Category Manager</h1>
+      
       {loading ? (
         <p className="text-center text-gray-500">Loading...</p>
       ) : selectedCategory ? (
@@ -166,3 +170,4 @@ const CategoryList = () => {
 };
 
 export default CategoryList;
+

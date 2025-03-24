@@ -37,7 +37,6 @@ export const loginUser = async (req, res) => {
             { expiresIn: "1h" }
         );
 
-        // Send token in HttpOnly cookie
         res.cookie("token", token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",

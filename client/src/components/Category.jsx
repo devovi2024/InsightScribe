@@ -19,7 +19,7 @@ const Category = ({ onCategoryCreated }) => {
     try {
       const response = await axios.post("http://localhost:2800/api/categories", {
         name,
-        level_no: parseInt(levelNo, 10), // Ensure level_no is a number
+        level_no: parseInt(levelNo, 10),
       });
 
       toast.success("Category created successfully!");
@@ -27,7 +27,7 @@ const Category = ({ onCategoryCreated }) => {
       setLevelNo("");
 
       if (onCategoryCreated) {
-        onCategoryCreated(response.data); // Notify parent component if needed
+        onCategoryCreated(response.data); 
       }
     } catch (error) {
       toast.error(error.response?.data?.message || "Something went wrong");

@@ -12,10 +12,15 @@ connectDB();
 
 const app = express();
 
+// ✅ Correct CORS Configuration
+app.use(cors({ 
+    origin: "http://localhost:5173", 
+    credentials: true 
+}));
+
 // Middleware
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 
 // Routes
 app.use("/api/users", userRoutes);

@@ -16,7 +16,7 @@ const Login = () => {
     setLoading(true);
 
     try {
-      const { data } = await API.post("/users/login", user);
+      const { data } = await API.post("/users/login", user, { withCredentials: true });
 
       // Store token and user ID
       localStorage.setItem("token", data.token);
@@ -25,7 +25,7 @@ const Login = () => {
       Swal.fire({
         icon: "success",
         title: "Login Successful!",
-        text: "Welcome back! loading...",
+        text: "Welcome back! Redirecting...",
         showConfirmButton: false,
         timer: 2000,
       });
@@ -37,6 +37,8 @@ const Login = () => {
     } catch (err) {
       const errorMessage = err.response?.data?.message || "❌ Login failed. Please try again.";
       setError(errorMessage);
+      console.error("Login error:", err);
+      
       Swal.fire({
         icon: "error",
         title: "Oops...",

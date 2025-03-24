@@ -7,6 +7,7 @@ import Login from "../pages/Login";
 import Home from "../pages/Home";
 import Dashboard from "../pages/Dashboard";
 import ProtectedRoute from "../components/ProtectedRoute";
+import PostDetails from "../pages/PostDetails";
 
 const AppRoutes = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -31,6 +32,9 @@ const AppRoutes = () => {
       <Navbar isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} />
       <Routes>
         <Route path="/" element={<Home />} />
+        {/* Corrected this route to use JSX */}
+        <Route path="/post/:postId" element={<PostDetails />} />
+
         <Route path="/register" element={<Register setIsAuthenticated={setIsAuthenticated} />} />
         <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} />} />
         <Route 
